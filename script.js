@@ -39,7 +39,6 @@ window.addEventListener("scroll", () => {
 const themeToggle = document.querySelector('.theme-toggle');
 const body = document.body;
 
-// Load saved theme
 if (localStorage.getItem('theme') === 'light') {
     body.classList.add('light');
     themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
@@ -59,12 +58,11 @@ themeToggle.addEventListener('click', () => {
 // ============================
 // EmailJS Contact Form
 // ============================
-// Load EmailJS library (make sure the script tag is in HTML before script.js)
 (function(){
-    emailjs.init("ioA1fmCaC_pCWNfgi"); // Your Public Key
+    emailjs.init("ioA1fmCaC_pCWNfgi");
 })();
 
-document.getElementById("contact-form").addEventListener("submit", function(e) {
+document.getElementById("contact-form")?.addEventListener("submit", function(e) {
     e.preventDefault();
     const statusEl = document.getElementById("form-status");
 
@@ -82,3 +80,31 @@ document.getElementById("contact-form").addEventListener("submit", function(e) {
         });
 });
 
+// ============================
+// Planet Orbit - Even Spacing
+// ============================
+const innerPlanets = document.querySelectorAll('.inner-orbit');
+const outerPlanets = document.querySelectorAll('.outer-orbit');
+
+innerPlanets.forEach((planet, index) => {
+    const angle = (360 / innerPlanets.length) * index;
+    planet.style.setProperty('--angle', `${angle}deg`);
+});
+
+outerPlanets.forEach((planet, index) => {
+    const angle = (360 / outerPlanets.length) * index;
+    planet.style.setProperty('--angle', `${angle}deg`);
+});
+
+// ============================
+// Mobile tooltip tap handling
+// ============================
+document.querySelectorAll('.planet span').forEach(skill => {
+    skill.addEventListener('touchstart', function(e) {
+        e.preventDefault();
+        this.classList.add('show-tooltip');
+        setTimeout(() => {
+            this.classList.remove('show-tooltip');
+        }, 2000);
+    });
+});
